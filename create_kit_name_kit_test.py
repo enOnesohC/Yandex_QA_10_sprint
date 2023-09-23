@@ -1,31 +1,30 @@
 import sender_stand_request
-import data
-
-# я не понял, зачем надо делать эту функцию, я же получаю токен при создании нового пользователя
-# а затем передаю его при создании набора.
-# также, при создании тестов запускается функция создания набора, то есть, сначала опять создаётся новый пользователь, который уже создаёт новый набор
-# насколько я понимаю, я реализовал такую логику.
-
-#def get_new_user_token():
-#    pass
 
 
-def positive_assert(kit_body):
+def get_kit_body(name):
+    # задаём переменную, которая будет являться телом запроса
+    # значение переменной формируется в формате json, поэтому скобки, "name": и само значение переменной
+    current_name = {"name": name}
+    # функция возвращает сформированную переменную
+    return current_name
+
+def positive_assert(name):
+
+    # формируем переменную на основе введённого аргумента в тесте.
+    current_name = get_kit_body(name)
     # задаём значение переменной, получаем результат post запроса с указанным аргументом
-    kit_response = sender_stand_request.post_new_client_kit(kit_body)
+    kit_response = sender_stand_request.post_new_client_kit(current_name)
 
     # Проверяется, что код ответа равен 201
     assert kit_response.status_code == 201
 
     # Проверяется, что в ответе поле name совпадает с полем name в запросе
-    assert kit_response.json()["name"] == kit_body["name"]
-    #print(kit_body["name"])
-    #print(kit_response.json()["name"])
+    assert kit_response.json()["name"] == current_name["name"]
 
 
-
-def negative_assert_code_400(kit_body):
-    kit_response = sender_stand_request.post_new_client_kit(kit_body)
+def negative_assert_code_400(name):
+    current_name = get_kit_body(name)
+    kit_response = sender_stand_request.post_new_client_kit(current_name)
 
     # Проверяется, что код ответа равен 400
     assert kit_response.status_code == 400
@@ -34,36 +33,48 @@ def negative_assert_code_400(kit_body):
 #Позитивные проверки
 
 def test_symbols_1():
-    positive_assert(kit_body = data.kit_body_1)
+    positive_assert("afe")
+    #   Допустимое количество символов (1)
+
 
 def test_symbols_511():
-    positive_assert(kit_body = data.kit_body_511)
+    positive_assert("AbcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdAbcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabC")
+    # 	Допустимое количество символов (511)
 
 def test_symbols_en():
-    positive_assert(kit_body = data.kit_body_en)
+    positive_assert("QWErty")
+    #	Английский алфавит
 
 def test_symbols_ru():
-    positive_assert(kit_body = data.kit_body_ru)
+    positive_assert("Мария")
+    #	Русский алфавит
 
 def test_symbols_spec():
-    positive_assert(kit_body = data.kit_body_spec)
+    positive_assert("№%@")
+    #   Спецсимволы
 
 def test_symbols_space():
-    positive_assert(kit_body = data.kit_body_space)
+    positive_assert(" Человек и КО ")
+    #   Пробелы в строке
 
 def test_symbols_num():
-    positive_assert(kit_body = data.kit_body_num)
+    positive_assert("123")
+    #   число в строке
 
 # Негативные проверки
 
 def test_symbols_0():
-    negative_assert_code_400(kit_body = data.kit_body_0)
+    negative_assert_code_400("")
+    #   Количество символов в запросе - 0
 
 def test_symbols_512():
-    negative_assert_code_400(kit_body = data.kit_body_512)
+    negative_assert_code_400("AbcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdAbcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcD")
+    # 	Превышение количества символов (512)
 
 def test_symbols_empty():
-    negative_assert_code_400(kit_body = data.kit_body_empty)
+    negative_assert_code_400({})
+    #   Пустой запрос
 
 def test_symbols_int():
-    negative_assert_code_400(kit_body = data.kit_body_int)
+    negative_assert_code_400(123)
+    #   Число(integer) в запросе

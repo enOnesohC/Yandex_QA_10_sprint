@@ -1,34 +1,22 @@
-kit_body_511 = {"name":"AbcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdAbcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabC"}
 
-kit_body_512 = {  "name":"AbcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdAbcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcD"}
+#лучше эти данные хранить в самих тестах, а не выносить в отдельный файл.
+#Если бы эти данные использовались несколько раз, тогда имело смысл их хранить отдельно от тестов.
 
-headers = {    "Content-Type": "application/json",
-    "Authorization": None
-}
+#А зачем тогда в подсказках сказано "Тела POST-запросов вынеси в отдельный файл data.py."?
+# вижу разночтения здесь
+#Сейчас получается так, что мне вообще не нужен файл data. - все данные я использую в других местах.
+# Вообще не понимаю ничего.
 
-user_body = {    "firstName": "Григорий",
-    "email": "kekekeke@ke.com",
-    "phone": "+74441237887",
-    "comment": "Ребёнок спит, не шумите",
-    "address": "г. Москва, ул. Хохотушкина, д. 16"
-}
+#нужно написать функцию, которая будет менять содержимое тела запроса (get_kit_body) и использовать ее в тестах.
 
-kit_body_test = {"name": "Мой набор"}
+#А в задании сказано, что МОЖНО написать функцию get_kit_body
+# то есть, можно писать, можно не писать.
+#я отказался от её написания, так как не совсем понимаю логику использования данной функции
+#эээ
+#ну я конечно попробую, но мне пока оч понятно моё решение и вообще непонятна, зачем вводить другую функцию
 
-kit_body_1 = {"name": "a"}
+# хм, я наверное понял, зачем заводим отдельную функцию под это дело, меньше писанины, да
+# но понять это довольно тяжело.
 
-kit_body_0 = {"name": ""}
-
-kit_body_en  = {"name": "QWErty"}
-
-kit_body_ru = {"name": "Мария"}
-
-kit_body_spec = {"name": "№%@"}
-
-kit_body_space = {"name": " Человек и КО "}
-
-kit_body_num = {"name": "123"}
-
-kit_body_empty = {}
-
-kit_body_int = {"name": 123}
+# И теперь у меня вообще пустой этот файл
+# скорее всего, я неправильно понял первую часть исправлений, про функцию создания пользователя и запроса.
